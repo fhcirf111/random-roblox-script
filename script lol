@@ -1,0 +1,29 @@
+local MarketPlaceService = game:GetService("MarketplaceService")
+
+local PlayerService = game:GetService("Players")
+local Player = PlayerService.LocalPlayer
+
+for _, Desc in pairs(workspace:GetDescendants()) do
+	if Desc:IsA("TextButton") and Desc.Parent:FindFirstChild("ImportantValues") then
+		Desc.MouseButton1Click:Connect(function()
+			if Desc.Parent.ImportantValues.AssetType.Value == "Clothing" then			
+				MarketPlaceService:PromptPurchase(Player, Desc.Parent.ImportantValues.AssetId.Value)
+			elseif Desc.Parent.ImportantValues.AssetType.Value == "Gamepass" then
+				MarketPlaceService:PromptGamePassPurchase(Player, Desc.Parent.ImportantValues.AssetId.Value)
+			end	
+		end)
+	end
+end
+
+workspace.DescendantAdded:Connect(function(Desc)
+	task.wait()
+	if Desc:IsA("TextButton") and Desc.Parent:FindFirstChild("ImportantValues") then
+		Desc.MouseButton1Click:Connect(function()
+			if Desc.Parent.ImportantValues.AssetType.Value == "Clothing" then			
+				MarketPlaceService:PromptPurchase(Player, Desc.Parent.ImportantValues.AssetId.Value)
+			elseif Desc.Parent.ImportantValues.AssetType.Value == "Gamepass" then
+				MarketPlaceService:PromptGamePassPurchase(Player, Desc.Parent.ImportantValues.AssetId.Value)
+			end	
+		end)
+	end
+end)
